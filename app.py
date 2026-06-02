@@ -9,7 +9,7 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
     odd_h_justa = p_sum / p_h
     odd_d_justa = p_sum / p_d
     odd_a_justa = p_sum / p_a
-    Soma = odd_h_justa + odd_d_justa + odd_a_justa
+    Soma = p_sum
 
     h_d = odd_h_justa / odd_d_justa
     d_a = odd_d_justa / odd_a_justa
