@@ -17,7 +17,7 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
         (1.60 <= odd_h_justa <= 2.40) and
         (3.30 <= odd_a_justa <= 5.00) and
         (0.7710 < d_a <= 1) and
-        (h_d <= 0.70)
+        (h_d < 0.71)
     )
 
     st.write(f"Odd_H_Justa: {odd_h_justa:.2f}")
