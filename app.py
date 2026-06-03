@@ -9,23 +9,26 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
     odd_h_justa = p_sum / p_h
     odd_d_justa = p_sum / p_d
     odd_a_justa = p_sum / p_a
+
     Soma = p_sum - 1
 
-    h_d = odd_h_justa / odd_d_justa
-    d_a = odd_d_justa / odd_a_justa
+    # Variáveis no mesmo formato do notebook (× 10000)
+    pre_hd = (odd_h / odd_d) * 10000
+    pre_da = (odd_d / odd_a) * 10000
 
     dentro = (
-        (1.60 <= odd_h_justa <= 2.40) and
-        (3.30 <= odd_a_justa <= 5.00) and
-        (0.7710 < d_a <= 1) and
-        (h_d < 0.71)
+        (pre_da >= 7710) and (pre_da <= 10110) and
+        (pre_hd <= 7100) and
+        (odd_a >= 3.26) and (odd_a <= 5.00) and
+        (odd_h >= 1.60) and (odd_h <= 2.40)
     )
+
     st.write(f"JUICE: {Soma:.2f}")
     st.write(f"Odd_H_Justa: {odd_h_justa:.2f}")
     st.write(f"Odd_D_Justa: {odd_d_justa:.2f}")
     st.write(f"Odd_A_Justa: {odd_a_justa:.2f}")
-    st.write(f"Variável D: {d_a:.4f}")
-    st.write(f"Variável H: {h_d:.4f}")
+    st.write(f"PRÉ_H/D: {pre_hd:.0f}")
+    st.write(f"PRÉ_D/A: {pre_da:.0f}")
 
     if dentro:
         st.success("✅ JOGO DENTRO DO PADRÃO")
@@ -35,9 +38,9 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
 # --- Interface ---
 st.title("Lay Visitante")
 
-odd_h = st.number_input("Odd Casa",    min_value=1.01, value=2.00, step=0.01)
-odd_d = st.number_input("Odd Empate",  min_value=1.01, value=3.50, step=0.01)
-odd_a = st.number_input("Odd Fora",    min_value=1.01, value=4.00, step=0.01)
+odd_h = st.number_input("Odd Casa",   min_value=1.01, value=2.00, step=0.01)
+odd_d = st.number_input("Odd Empate", min_value=1.01, value=3.50, step=0.01)
+odd_a = st.number_input("Odd Fora",   min_value=1.01, value=4.00, step=0.01)
 
 if st.button("Verificar"):
     verifica_lay_visitante(odd_h, odd_d, odd_a)
