@@ -16,7 +16,7 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
     pre_da = (odd_d / odd_a) * 10000
 
     dentro = (
-        (pre_da >= 7710) and (pre_da <= 10110) and
+        (pre_da >= 7710) and (pre_da <= 10900) and
         (pre_hd <= 7100) and
         (odd_a >= 3.26) and (odd_a <= 5.00) and
         (odd_h >= 1.60) and (odd_h <= 2.40)
