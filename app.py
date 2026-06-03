@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 def verifica_lay_visitante(odd_h, odd_d, odd_a):
     p_h = 1 / odd_h
@@ -9,10 +10,8 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
     odd_h_justa = p_sum / p_h
     odd_d_justa = p_sum / p_d
     odd_a_justa = p_sum / p_a
-
     Soma = p_sum - 1
 
-    # Variáveis no mesmo formato do notebook (× 10000)
     pre_hd = (odd_h / odd_d) * 10000
     pre_da = (odd_d / odd_a) * 10000
 
@@ -35,8 +34,22 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
     else:
         st.error("❌ JOGO FORA DO PADRÃO")
 
+    # Salva no histórico
+    st.session_state.historico.append({
+        "Odd H": odd_h,
+        "Odd D": odd_d,
+        "Odd A": odd_a,
+        "PRÉ_H/D": round(pre_hd),
+        "PRÉ_D/A": round(pre_da),
+        "Resultado": "✅ DENTRO" if dentro else "❌ FORA"
+    })
+
 # --- Interface ---
 st.title("Lay Visitante")
+
+# Inicializa o histórico
+if "historico" not in st.session_state:
+    st.session_state.historico = []
 
 odd_h = st.number_input("Odd Casa",   min_value=1.01, value=2.00, step=0.01)
 odd_d = st.number_input("Odd Empate", min_value=1.01, value=3.50, step=0.01)
@@ -44,3 +57,14 @@ odd_a = st.number_input("Odd Fora",   min_value=1.01, value=4.00, step=0.01)
 
 if st.button("Verificar"):
     verifica_lay_visitante(odd_h, odd_d, odd_a)
+
+# Exibe histórico
+if st.session_state.historico:
+    st.divider()
+    st.subheader("📋 Histórico")
+    df = pd.DataFrame(st.session_state.historico)
+    st.dataframe(df, use_container_width=True)
+
+    if st.button("🗑️ Limpar histórico"):
+        st.session_state.historico = []
+        st.rerun()
