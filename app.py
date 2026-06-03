@@ -22,7 +22,7 @@ def verifica_lay_visitante(odd_h, odd_d, odd_a):
     )
     st.write(f"JUICE: {Soma:.2f}")
     st.write(f"Odd_H_Justa: {odd_h_justa:.2f}")
-    st.write(f"Odd_D_Justa: {odd_a_justa:.2f}")
+    st.write(f"Odd_D_Justa: {odd_d_justa:.2f}")
     st.write(f"Odd_A_Justa: {odd_a_justa:.2f}")
     st.write(f"Variável A: {d_a:.4f}")
     st.write(f"Variável B: {h_d:.4f}")
