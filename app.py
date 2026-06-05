@@ -6,7 +6,7 @@ st.title("Lay Filter")
 
 # Inicializa históricos
 if "hist_visitante" not in st.session_state:
-    st.session_state.hist_visitante = []
+    st.session_state.hist_visitante = [] 
 if "hist_ox1" not in st.session_state:
     st.session_state.hist_ox1 = []
 
