@@ -76,7 +76,7 @@ if st.button("Verificar", use_container_width=True):
         st.info("📌 **Filtro pré-jogo.** Confirme campo: chutes ou escanteios a favor da casa. Odd de entrada **≤ 25**.")
 
     else:
-        st.error("🚫 Stay Out")
+        st.error("🚫 Fique de fora")
 
     # histórico
     indicacao = []
