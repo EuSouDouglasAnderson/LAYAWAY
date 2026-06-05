@@ -42,15 +42,18 @@ if st.button("Verificar", use_container_width=True):
         pre_ad >= 12500
     )
 
-    # métricas
-    m1, m2, m3, m4, m5, m6, m7 = st.columns(7)
-    m1.metric("Juice",   f"{juice:.2%}")
-    m2.metric("H justa", f"{fH:.2f}")
-    m3.metric("D justa", f"{fD:.2f}")
-    m4.metric("A justa", f"{fA:.2f}")
-    m5.metric("PRÉ H/D", f"{pre_hd:.0f}")
-    m6.metric("PRÉ D/A", f"{pre_da:.0f}")
-    m7.metric("PRÉ A/D", f"{pre_ad:.0f}")
+    # métricas — linha 1: odds justas + juice
+    r1c1, r1c2, r1c3, r1c4 = st.columns(4)
+    r1c1.metric("Juice",   f"{juice:.2%}")
+    r1c2.metric("H justa", f"{fH:.2f}")
+    r1c3.metric("D justa", f"{fD:.2f}")
+    r1c4.metric("A justa", f"{fA:.2f}")
+
+    # métricas — linha 2: PRÉs
+    r2c1, r2c2, r2c3 = st.columns(3)
+    r2c1.metric("PRÉ H/D", f"{pre_hd:.0f}")
+    r2c2.metric("PRÉ D/A", f"{pre_da:.0f}")
+    r2c3.metric("PRÉ A/D", f"{pre_ad:.0f}")
 
     st.divider()
 
