@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="Davs Trader", layout="centered")
-st.title("Lay Filter")
+st.title("Filtro de jogos")
 
 if "historico" not in st.session_state:
     st.session_state.historico = []
