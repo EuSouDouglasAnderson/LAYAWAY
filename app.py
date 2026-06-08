@@ -186,9 +186,6 @@ if st.button("Verificar", use_container_width=True):
             "Odd H": odd_h,
             "Odd D": odd_d,
             "Odd A": odd_a,
-            "PRÉ H/D": round(pre_hd),
-            "PRÉ D/A": round(pre_da),
-            "PRÉ A/D": round(pre_ad),
             "DIST": round(dist),
             "Indicação": " + ".join(indicacao),
         }
