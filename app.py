@@ -9,7 +9,7 @@ from src.rules import lay_visitante, lay_0x1
 # ==================================================
 
 st.set_page_config(
-    page_title="Davs Trader",
+    page_title="Davs Labs",
     layout="centered"
 )
 
