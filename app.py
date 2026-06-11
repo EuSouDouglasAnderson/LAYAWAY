@@ -1,8 +1,18 @@
 import streamlit as st
 import pandas as pd
-import math
 
-st.set_page_config(page_title="Davs Trader", layout="centered")
+from src.odds import fair_odds
+from src.rules import lay_visitante, lay_0x1
+
+# ==================================================
+# CONFIGURAÇÃO
+# ==================================================
+
+st.set_page_config(
+    page_title="Davs Trader",
+    layout="centered"
+)
+
 st.title("Filtro de Jogos")
 
 # ==================================================
@@ -11,24 +21,6 @@ st.title("Filtro de Jogos")
 
 if "historico" not in st.session_state:
     st.session_state.historico = []
-
-# ==================================================
-# FUNÇÕES
-# ==================================================
-
-def fair_odds(h, d, a):
-    ph = 1 / h
-    pd_ = 1 / d
-    pa = 1 / a
-
-    s = ph + pd_ + pa
-
-    return (
-        s - 1,
-        s / ph,  # Odd justa Casa
-        s / pd_, # Odd justa Empate
-        s / pa   # Odd justa Visitante
-    )
 
 # ==================================================
 # INPUTS
@@ -63,56 +55,44 @@ odd_a = c3.number_input(
 
 if st.button("Verificar", use_container_width=True):
 
-    # Odds justas
+    # Odds Justas
     juice, fH, fD, fA = fair_odds(
         odd_h,
         odd_d,
         odd_a
     )
 
-    # Ratios antigos (usados no Lay 0x1)
+    # Ratios do Lay 0x1
     pre_hd = (odd_h / odd_d) * 10000
     pre_da = (odd_d / odd_a) * 10000
     pre_ad = (odd_a / odd_d) * 10000
 
-    # ==================================================
-    # NOVO LAY VISITANTE
-    # ==================================================
-
-    d_a = fD / fA
-
-    lay_v = (
-        0.7710 <= d_a <= 1.02 and
-        1.80 <= fH <= 2.24 and
-        3.00 <= fA <= 5.00
+    # Regras
+    lv = lay_visitante(
+        fH,
+        fD,
+        fA
     )
 
-    # ==================================================
-    # FILTRO LAY 0X1
-    # ==================================================
-
-    lay_0x1 = (
-        1.01 <= odd_h <= 1.99 and
-        3.00 <= odd_d <= 100 and
-        4.00 <= odd_a <= 100 and
-        100 <= pre_hd <= 4850 and
-        5000 <= pre_da <= 7710 and
-        pre_ad >= 12500
+    l01 = lay_0x1(
+        odd_h,
+        odd_d,
+        odd_a,
+        pre_hd,
+        pre_da,
+        pre_ad
     )
 
-    # ==================================================
-    # RESULTADO
-    # ==================================================
-
-    if lay_v and lay_0x1:
+    # Resultado
+    if lv and l01:
         resultado = "Lay Visitante + Lay 0x1"
         st.success("✅ Lay Visitante + Lay 0x1")
 
-    elif lay_v:
+    elif lv:
         resultado = "Lay Visitante"
         st.success("✅ Lay Visitante")
 
-    elif lay_0x1:
+    elif l01:
         resultado = "Lay 0x1"
         st.success("✅ Lay 0x1")
 
@@ -120,17 +100,14 @@ if st.button("Verificar", use_container_width=True):
         resultado = "Fique de Fora"
         st.error("🚫 Fique de Fora")
 
-    # ==================================================
-    # HISTÓRICO
-    # ==================================================
-
+    # Histórico
     st.session_state.historico.insert(
         0,
         {
             "Odd H": odd_h,
             "Odd D": odd_d,
             "Odd A": odd_a,
-            "Resultado": resultado,
+            "Resultado": resultado
         }
     )
 
