@@ -1,4 +1,3 @@
-
 def lay_visitante(fH, fD, fA):
 
     d_a = fD / fA
