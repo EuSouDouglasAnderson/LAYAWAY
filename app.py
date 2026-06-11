@@ -17,9 +17,18 @@ if "historico" not in st.session_state:
 # ==================================================
 
 def fair_odds(h, d, a):
-    ph, pd_, pa = 1 / h, 1 / d, 1 / a
+    ph = 1 / h
+    pd_ = 1 / d
+    pa = 1 / a
+
     s = ph + pd_ + pa
-    return s - 1, s / ph, s / pd_, s / pa
+
+    return (
+        s - 1,
+        s / ph,  # Odd justa Casa
+        s / pd_, # Odd justa Empate
+        s / pa   # Odd justa Visitante
+    )
 
 # ==================================================
 # INPUTS
@@ -54,31 +63,28 @@ odd_a = c3.number_input(
 
 if st.button("Verificar", use_container_width=True):
 
-    # Cálculos internos (não exibidos)
-    juice, fH, fD, fA = fair_odds(odd_h, odd_d, odd_a)
+    # Odds justas
+    juice, fH, fD, fA = fair_odds(
+        odd_h,
+        odd_d,
+        odd_a
+    )
 
+    # Ratios antigos (usados no Lay 0x1)
     pre_hd = (odd_h / odd_d) * 10000
     pre_da = (odd_d / odd_a) * 10000
     pre_ad = (odd_a / odd_d) * 10000
 
-    ponto_hd = 5000
-    ponto_da = 8000
-
-    dist = math.sqrt(
-        (pre_hd - ponto_hd) ** 2 +
-        (pre_da - ponto_da) ** 2
-    )
-
     # ==================================================
-    # FILTRO LAY VISITANTE
+    # NOVO LAY VISITANTE
     # ==================================================
+
+    d_a = fD / fA
 
     lay_v = (
-        7710 <= pre_da <= 10900 and
-        pre_hd < 7100 and
-        3.26 <= odd_a <= 5.00 and
-        1.60 <= odd_h <= 2.40 and
-        dist < 2300
+        0.7710 <= d_a <= 1.02 and
+        1.80 <= fH <= 2.24 and
+        3.00 <= fA <= 5.00
     )
 
     # ==================================================
