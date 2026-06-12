@@ -22,6 +22,6 @@ def lay_0x1(
         1.01 <= odd_h <= 1.99 and
         3.00 <= odd_d <= 100 and
         4.00 <= odd_a <= 100 and
-        5000 <= pre_da <= 7710 and
+        pre_da <= 7710 and
         pre_ad >= 12500
     )
